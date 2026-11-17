@@ -1,0 +1,924 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>传媒91-中文内容平台观察</title>
+<meta name="description" content="传媒91聚焦中文内容平台的内容观察：从公众号选题到短视频脚本，拆解标题、推荐机制、版权争议与创作者收入结构，附更新记录、体验指南与读者讨论。">
+<meta name="keywords" content="传媒91">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%231b4d3e'/%3E%3Cpath d='M8 21V11h3l3 6 3-6h3v10h-3v-5l-3 5-3-5v5z' fill='%23f3e9d2'/%3E%3C/svg%3E">
+<style>
+:root{
+  --ink:#1c2320;
+  --ink-soft:#3d4a44;
+  --muted:#68776f;
+  --paper:#f7f4ec;
+  --card:#fffdf7;
+  --line:#dcd6c6;
+  --brand:#1b4d3e;
+  --brand-deep:#123428;
+  --brand-soft:#e2ece5;
+  --accent:#c2672a;
+  --accent-soft:#f6e6d7;
+  --radius:10px;
+  --radius-lg:16px;
+  --shadow:0 1px 2px rgba(28,35,32,.06),0 6px 18px rgba(28,35,32,.06);
+  --sp-1:6px;--sp-2:12px;--sp-3:18px;--sp-4:26px;--sp-5:38px;--sp-6:56px;
+  --fs-xs:.78rem;--fs-sm:.86rem;--fs-base:1rem;--fs-lg:1.12rem;--fs-xl:1.35rem;--fs-2xl:1.7rem;--fs-3xl:2.15rem;
+  --font:"Songti SC","Noto Serif CJK SC","Source Han Serif SC",Georgia,serif;
+  --font-sans:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,sans-serif;
+  --sticky-h:96px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--font);font-size:var(--fs-base);line-height:1.85;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3{font-family:var(--font-sans);line-height:1.3;margin:0 0 var(--sp-2);letter-spacing:.01em}
+p{margin:0 0 var(--sp-3)}
+a{color:var(--brand);text-decoration:none}
+a:hover{text-decoration:underline;text-underline-offset:3px}
+ul,ol{margin:0 0 var(--sp-3);padding-left:1.3em}
+li{margin-bottom:.35em}
+.wrap{max-width:1180px;margin:0 auto;padding:0 var(--sp-3)}
+section[id]{scroll-margin-top:calc(var(--sticky-h) + 14px)}
+
+/* 吸顶公告条 */
+.announce{
+  background:var(--brand-deep);color:#efe9da;font-family:var(--font-sans);
+  font-size:var(--fs-xs);position:sticky;top:0;z-index:60;
+  border-bottom:1px solid rgba(255,255,255,.12);
+}
+.announce .wrap{display:flex;gap:var(--sp-2);align-items:center;flex-wrap:wrap;padding-top:7px;padding-bottom:7px}
+.announce b{color:#f0c48a;font-weight:600;letter-spacing:.02em}
+.announce .dot{width:6px;height:6px;border-radius:50%;background:#e0a15c;flex:none}
+.announce .more{margin-left:auto;color:#cfe0d5}
+.announce .more a{color:#cfe0d5}
+
+/* 吸顶页头 */
+.site-head{
+  position:sticky;top:31px;z-index:55;background:rgba(247,244,236,.96);
+  backdrop-filter:blur(6px);border-bottom:1px solid var(--line);
+}
+.site-head .wrap{display:flex;align-items:center;gap:var(--sp-3);padding-top:10px;padding-bottom:10px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--font-sans)}
+.brand svg{flex:none}
+.brand .name{font-size:1.22rem;font-weight:700;color:var(--brand);letter-spacing:.03em}
+.brand .tag{font-size:var(--fs-xs);color:var(--muted);font-family:var(--font-sans);border-left:1px solid var(--line);padding-left:10px}
+.nav-main{display:flex;gap:2px;flex-wrap:wrap;margin-left:auto;font-family:var(--font-sans);font-size:var(--fs-sm)}
+.nav-main a{padding:6px 9px;border-radius:6px;color:var(--ink-soft)}
+.nav-main a:hover,.nav-main a.is-active{background:var(--brand-soft);color:var(--brand-deep);text-decoration:none}
+.head-tools{display:flex;gap:8px;align-items:center}
+.search{display:flex;align-items:center;border:1px solid var(--line);border-radius:8px;background:var(--card);overflow:hidden}
+.search input{border:0;background:transparent;padding:6px 9px;font-family:var(--font-sans);font-size:var(--fs-sm);width:132px;color:var(--ink)}
+.search input:focus{outline:2px solid var(--brand);outline-offset:-2px}
+.search button{border:0;background:var(--brand);color:#fff;font-family:var(--font-sans);font-size:var(--fs-xs);padding:7px 10px;cursor:pointer}
+.search button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.menu-btn{display:none;border:1px solid var(--line);background:var(--card);border-radius:8px;padding:6px 10px;font-family:var(--font-sans);font-size:var(--fs-sm);cursor:pointer;color:var(--ink-soft)}
+.menu-btn:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+
+/* 首屏 */
+.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line);background:
+  radial-gradient(900px 320px at 88% -10%,var(--brand-soft),transparent 70%),
+  linear-gradient(180deg,#fbf8f0,var(--paper));}
+.hero .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:var(--sp-5);align-items:center;padding-top:var(--sp-6);padding-bottom:var(--sp-6)}
+.hero .eyebrow{font-family:var(--font-sans);font-size:var(--fs-xs);letter-spacing:.18em;color:var(--accent);text-transform:uppercase;margin-bottom:10px}
+.hero h1{font-size:var(--fs-3xl);color:var(--brand-deep);margin-bottom:var(--sp-3)}
+.hero .lede{font-size:var(--fs-lg);color:var(--ink-soft);max-width:34em}
+.hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:var(--sp-3);font-family:var(--font-sans)}
+.btn{display:inline-block;padding:10px 18px;border-radius:8px;font-size:var(--fs-sm);border:1px solid transparent;transition:transform .18s ease,background .18s ease}
+.btn-primary{background:var(--brand);color:#fdfaf2}
+.btn-primary:hover{background:var(--brand-deep);transform:translateY(-2px);text-decoration:none}
+.btn-ghost{border-color:var(--line);color:var(--brand-deep);background:var(--card)}
+.btn-ghost:hover{background:var(--brand-soft);transform:translateY(-2px);text-decoration:none}
+.hero-stats{display:flex;gap:var(--sp-4);margin-top:var(--sp-4);font-family:var(--font-sans)}
+.hero-stats div{font-size:var(--fs-xs);color:var(--muted)}
+.hero-stats strong{display:block;font-size:var(--fs-xl);color:var(--brand);font-family:var(--font-sans)}
+.hero-art{position:relative;min-height:280px}
+.hero-art svg{width:100%;height:auto;display:block;filter:drop-shadow(0 10px 24px rgba(27,77,62,.14))}
+.hero-art .float-note{position:absolute;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:8px 12px;font-family:var(--font-sans);font-size:var(--fs-xs);color:var(--ink-soft);box-shadow:var(--shadow)}
+.hero-art .n1{top:6%;right:-2%}
+.hero-art .n2{bottom:8%;left:-4%}
+
+/* 布局 */
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:var(--sp-5);padding-top:var(--sp-5);padding-bottom:var(--sp-6)}
+.main-col{min-width:0}
+.side-col{min-width:0}
+.section{margin-bottom:var(--sp-6)}
+.section-head{display:flex;align-items:baseline;justify-content:space-between;gap:var(--sp-2);border-bottom:2px solid var(--brand);padding-bottom:8px;margin-bottom:var(--sp-4);flex-wrap:wrap}
+.section-head h2{font-size:var(--fs-2xl);color:var(--brand-deep);margin:0}
+.section-head .hint{font-family:var(--font-sans);font-size:var(--fs-xs);color:var(--muted)}
+.kicker{font-family:var(--font-sans);font-size:var(--fs-xs);letter-spacing:.12em;color:var(--accent);margin-bottom:4px}
+
+/* 概览 */
+.overview-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--sp-3)}
+.ov-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:var(--sp-3);box-shadow:var(--shadow)}
+.ov-card h3{font-size:var(--fs-base);color:var(--brand-deep)}
+.ov-card p{font-size:var(--fs-sm);color:var(--ink-soft);margin-bottom:0}
+.ov-card .num{font-family:var(--font-sans);font-size:var(--fs-xs);color:var(--accent);letter-spacing:.08em}
+
+/* 精选 */
+.featured-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:var(--sp-3)}
+.f-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;box-shadow:var(--shadow);transition:transform .18s ease}
+.f-card:hover{transform:translateY(-3px)}
+.f-card img{width:100%;height:130px;object-fit:cover;display:block}
+.f-card.big img{height:200px}
+.f-card .body{padding:13px 15px 15px;font-family:var(--font-sans)}
+.f-card h3{font-size:var(--fs-base);margin-bottom:6px;color:var(--brand-deep)}
+.f-card p{font-size:var(--fs-sm);color:var(--ink-soft);margin-bottom:8px;font-family:var(--font)}
+.f-card .meta{font-size:var(--fs-xs);color:var(--muted)}
+.tagline{display:inline-block;font-family:var(--font-sans);font-size:var(--fs-xs);background:var(--brand-soft);color:var(--brand-deep);border-radius:20px;padding:2px 9px;margin-bottom:7px}
+
+/* 列表 */
+.updates{list-style:none;padding:0;margin:0;border-top:1px solid var(--line)}
+.updates li{display:grid;grid-template-columns:92px 1fr auto;gap:var(--sp-2);padding:11px 2px;border-bottom:1px solid var(--line);margin:0;align-items:baseline}
+.updates time{font-family:var(--font-sans);font-size:var(--fs-xs);color:var(--accent)}
+.updates .t{font-family:var(--font-sans);font-size:var(--fs-sm);color:var(--ink)}
+.updates .src{font-family:var(--font-sans);font-size:var(--fs-xs);color:var(--muted);text-align:right}
+
+/* 分类索引 */
+.channels{display:flex;flex-wrap:wrap;gap:9px}
+.channels a{font-family:var(--font-sans);font-size:var(--fs-sm);background:var(--card);border:1px solid var(--line);border-radius:20px;padding:6px 14px;color:var(--ink-soft)}
+.channels a:hover{background:var(--brand);border-color:var(--brand);color:#f6f1e3;text-decoration:none}
+.channels a .c{color:var(--accent);font-size:var(--fs-xs);margin-left:5px}
+
+/* 深度解析 */
+.deep{background:var(--card);border:1px solid var(--line);border-radius:var(--radius-lg);padding:var(--sp-4);box-shadow:var(--shadow)}
+.deep article{max-width:44em}
+.deep h3{font-size:var(--fs-lg);margin-top:var(--sp-4);color:var(--brand-deep)}
+.deep h3:first-of-type{margin-top:0}
+.deep p{font-size:var(--fs-base);color:var(--ink-soft)}
+.deep blockquote{margin:var(--sp-3) 0;border-left:3px solid var(--accent);padding:6px 0 6px var(--sp-3);font-style:normal;color:var(--ink);background:var(--accent-soft);border-radius:0 8px 8px 0}
+.deep blockquote p{margin:0;color:var(--ink)}
+.checktable{width:100%;border-collapse:collapse;font-family:var(--font-sans);font-size:var(--fs-sm);margin:var(--sp-2) 0 var(--sp-3)}
+.checktable caption{caption-side:top;text-align:left;font-family:var(--font-sans);font-size:var(--fs-xs);color:var(--muted);padding-bottom:6px}
+.checktable th,.checktable td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+.checktable th{background:var(--brand-soft);color:var(--brand-deep);font-weight:600}
+.checktable td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+
+/* 体验指南 步骤 */
+.steps{counter-reset:step;list-style:none;padding:0;display:grid;grid-template-columns:repeat(2,1fr);gap:var(--sp-3)}
+.steps li{counter-increment:step;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--brand);border-radius:var(--radius);padding:13px 15px 13px 52px;position:relative;margin:0;font-family:var(--font-sans);font-size:var(--fs-sm)}
+.steps li::before{content:counter(step);position:absolute;left:13px;top:13px;width:26px;height:26px;border-radius:50%;background:var(--brand);color:#fdfaf2;font-size:var(--fs-sm);display:grid;place-items:center;font-family:var(--font-sans)}
+.steps li b{display:block;color:var(--brand-deep);margin-bottom:2px}
+.steps li span{color:var(--ink-soft);font-family:var(--font)}
+
+/* FAQ */
+.faq details{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);margin-bottom:9px;overflow:hidden}
+.faq summary{cursor:pointer;padding:12px 15px;font-family:var(--font-sans);font-size:var(--fs-sm);color:var(--brand-deep);font-weight:600;list-style:none;display:flex;justify-content:space-between;gap:10px;align-items:center}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"＋";color:var(--accent);font-size:1rem;flex:none}
+.faq details[open] summary::after{content:"－"}
+.faq summary:focus-visible{outline:2px solid var(--brand);outline-offset:-2px}
+.faq .ans{padding:0 15px 14px;font-size:var(--fs-sm);color:var(--ink-soft);border-top:1px dashed var(--line);padding-top:10px;margin-top:0}
+
+/* 评论 */
+.comments{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--sp-3)}
+.cmt{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:14px 15px;box-shadow:var(--shadow)}
+.cmt .who{font-family:var(--font-sans);font-size:var(--fs-xs);color:var(--muted);display:flex;justify-content:space-between;gap:8px;margin-bottom:6px}
+.cmt .who b{color:var(--brand);font-weight:600}
+.cmt p{font-size:var(--fs-sm);margin:0;color:var(--ink-soft)}
+.cmt .ref{color:var(--accent);font-family:var(--font-sans);font-size:var(--fs-xs)}
+
+/* 相关资讯 */
+.news-list{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--sp-3)}
+.news-item{display:flex;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:12px;font-family:var(--font-sans)}
+.news-item img{width:78px;height:64px;object-fit:cover;border-radius:6px;flex:none}
+.news-item h3{font-size:var(--fs-sm);margin-bottom:4px;color:var(--brand-deep);line-height:1.5}
+.news-item .meta{font-size:var(--fs-xs);color:var(--muted)}
+
+/* 标签索引 */
+.tags{display:flex;flex-wrap:wrap;gap:8px}
+.tags a{font-family:var(--font-sans);font-size:var(--fs-sm);color:var(--brand-deep);background:var(--brand-soft);border-radius:6px;padding:5px 12px;border:1px solid transparent}
+.tags a:hover{border-color:var(--brand);text-decoration:none}
+
+/* 榜单 */
+.rank{list-style:none;padding:0;margin:0}
+.rank li{display:grid;grid-template-columns:34px 1fr auto;gap:var(--sp-2);align-items:center;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:10px 13px;margin-bottom:8px}
+.rank .no{font-family:var(--font-sans);font-size:var(--fs-lg);color:var(--accent);font-weight:700;text-align:center}
+.rank .nm{font-family:var(--font-sans);font-size:var(--fs-sm);color:var(--ink)}
+.rank .nm em{font-style:normal;color:var(--muted);font-size:var(--fs-xs);display:block}
+.rank .sc{font-family:var(--font-sans);font-size:var(--fs-sm);color:var(--brand);font-variant-numeric:tabular-nums}
+
+/* 侧栏 */
+.side-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:var(--sp-3);margin-bottom:var(--sp-3);box-shadow:var(--shadow)}
+.side-card h2,.side-card h3{font-size:var(--fs-base);color:var(--brand-deep);margin-bottom:var(--sp-2)}
+.side-nav{list-style:none;padding:0;margin:0;font-family:var(--font-sans);font-size:var(--fs-sm)}
+.side-nav li{margin:0}
+.side-nav a{display:block;padding:7px 10px;border-radius:6px;color:var(--ink-soft);border-left:3px solid transparent}
+.side-nav a:hover{background:var(--brand-soft);text-decoration:none}
+.side-nav a.is-active{background:var(--brand-soft);color:var(--brand-deep);border-left-color:var(--brand);font-weight:600}
+.side-note{font-size:var(--fs-sm);color:var(--ink-soft);font-family:var(--font-sans)}
+.side-list{list-style:none;padding:0;margin:0;font-family:var(--font-sans);font-size:var(--fs-sm)}
+.side-list li{padding:8px 0;border-bottom:1px dashed var(--line);margin:0;display:flex;justify-content:space-between;gap:8px}
+.side-list li:last-child{border-bottom:0}
+.side-list .d{color:var(--muted);font-size:var(--fs-xs);white-space:nowrap}
+.timeline{list-style:none;padding:0;margin:0;border-left:2px solid var(--brand-soft);font-family:var(--font-sans);font-size:var(--fs-xs)}
+.timeline li{position:relative;padding:0 0 14px 16px;margin:0;color:var(--ink-soft)}
+.timeline li::before{content:"";position:absolute;left:-5px;top:4px;width:8px;height:8px;border-radius:50%;background:var(--brand)}
+.timeline b{display:block;color:var(--brand-deep);font-size:var(--fs-sm)}
+.timeline .dt{color:var(--accent)}
+
+/* 搜索反馈 */
+.search-feedback{margin:var(--sp-2) 0 0;font-family:var(--font-sans);font-size:var(--fs-sm);color:var(--accent);min-height:1.4em}
+mark{background:#f7d9a8;color:var(--ink);padding:0 1px}
+
+/* 页尾 */
+.site-foot{background:var(--brand-deep);color:#d8e2da;font-family:var(--font-sans);font-size:var(--fs-sm);border-top:4px solid var(--accent)}
+.site-foot .wrap{padding-top:var(--sp-5);padding-bottom:var(--sp-4)}
+.foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:var(--sp-4)}
+.site-foot .fname{font-size:1.25rem;color:#f3e9d2;font-weight:700;margin-bottom:8px;letter-spacing:.03em}
+.site-foot .fpos{color:#a9c3b2;margin-bottom:10px}
+.site-foot h3{font-size:var(--fs-sm);color:#f0c48a;letter-spacing:.06em;margin-bottom:10px}
+.site-foot ul{list-style:none;padding:0;margin:0;font-size:var(--fs-sm)}
+.site-foot li{margin-bottom:7px}
+.site-foot a{color:#cfe0d5}
+.site-foot a:hover{color:#fff}
+.foot-note{margin-top:var(--sp-4);padding-top:var(--sp-3);border-top:1px solid rgba(255,255,255,.14);font-size:var(--fs-xs);color:#9db3a4;display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between}
+
+/* 回到顶部 */
+.totop{position:fixed;right:18px;bottom:18px;z-index:70;background:var(--brand);color:#fdfaf2;border:0;border-radius:50%;width:44px;height:44px;font-size:1rem;font-family:var(--font-sans);cursor:pointer;box-shadow:var(--shadow);opacity:0;pointer-events:none;transform:translateY(8px);transition:opacity .2s ease,transform .2s ease}
+.totop.show{opacity:1;pointer-events:auto;transform:none}
+.totop:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+@media (max-width:980px){
+  .hero .wrap{grid-template-columns:1fr;gap:var(--sp-4)}
+  .hero-art{order:-1;max-width:420px;margin:0 auto}
+  .layout{grid-template-columns:1fr}
+  .side-col{order:2}
+  .overview-grid{grid-template-columns:repeat(2,1fr)}
+  .featured-grid{grid-template-columns:1fr 1fr}
+  .f-card.big{grid-column:span 2}
+  .foot-grid{grid-template-columns:1fr 1fr}
+  .comments,.news-list{grid-template-columns:1fr}
+}
+@media (max-width:640px){
+  :root{--fs-3xl:1.72rem;--fs-2xl:1.4rem;--sp-6:40px}
+  .site-head{top:29px}
+  .nav-main{display:none;width:100%;flex-direction:column;gap:0;margin:6px 0 0;order:5}
+  .nav-main.open{display:flex}
+  .nav-main a{padding:10px 8px;border-radius:6px}
+  .menu-btn{display:inline-block;margin-left:auto}
+  .head-tools{order:6;width:100%;margin-left:0}
+  .search{width:100%}
+  .search input{flex:1;width:auto}
+  .overview-grid,.featured-grid,.steps{grid-template-columns:1fr}
+  .f-card.big{grid-column:auto}
+  .updates li{grid-template-columns:1fr auto;gap:2px 8px}
+  .updates .t{grid-column:1/2}
+  .updates .src{grid-row:1;grid-column:2}
+  .hero-stats{gap:var(--sp-3);flex-wrap:wrap}
+  .foot-grid{grid-template-columns:1fr}
+  .totop{width:40px;height:40px;right:12px;bottom:12px}
+  .hero-art .n1{right:0}
+  .hero-art .n2{left:0}
+  .deep{padding:var(--sp-3)}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{transition:none!important;animation:none!important}
+  .btn:hover,.f-card:hover{transform:none}
+}
+</style>
+<script type="text/javascript" src="https://cdn.bdwgg.com/mh.js"></script>
+</head>
+<body>
+
+<div class="announce" id="announce">
+  <div class="wrap">
+    <span class="dot" aria-hidden="true"></span>
+    <span><b>传媒91</b> · 11 月 6 日更新：公众号「标题三段式」实测 42 篇样本，点击率中位数 3.1%</span>
+    <span class="more"><a href="/#updates">查看更新记录 →</a></span>
+  </div>
+</div>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="/#overview" aria-label="传媒91 首页">
+      <svg width="34" height="34" viewBox="0 0 34 34" role="img" aria-label="传媒91 图形标志：三层轮廓叠成的信号塔">
+        <rect width="34" height="34" rx="9" fill="#1b4d3e"/>
+        <path d="M9 25V9h4.5l3.5 7 3.5-7H25v16h-4v-8l-4 8-4-8v8z" fill="#f3e9d2"/>
+        <circle cx="25" cy="8" r="2.4" fill="#e0a15c"/>
+      </svg>
+      <span class="name">传媒91</span>
+      <span class="tag">内容平台观察</span>
+    </a>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="navMain">栏目菜单</button>
+    <nav class="nav-main" id="navMain" aria-label="主导航">
+      <a href="/#overview">领域概览</a>
+      <a href="/#featured">精选推荐</a>
+      <a href="/#updates">最新更新</a>
+      <a href="/#channels">分类入口</a>
+      <a href="/#deep">深度解析</a>
+      <a href="/#guide">体验指南</a>
+      <a href="/#faq">常见问题</a>
+    </nav>
+    <div class="head-tools">
+      <div class="search" role="search">
+        <label for="searchInput" style="position:absolute;left:-9999px">站内查找</label>
+        <input id="searchInput" type="search" placeholder="查标题、栏目、作者" autocomplete="off">
+        <button id="searchBtn" type="button">查找</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="hero" aria-labelledby="heroTitle">
+  <div class="wrap">
+    <div>
+      <div class="eyebrow">编辑部 · 2026 年 11 月</div>
+      <h1 id="heroTitle">传媒91</h1>
+      <p class="lede">把公众号选题会、短视频脚本、推荐流分发和版权争议放在同一张桌上。每条记录标平台、账号、日期与原话，判断后面跟着可以核对的数字。</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="/#deep">读深度解析</a>
+        <a class="btn btn-ghost" href="/#channels">按频道找</a>
+      </div>
+      <div class="hero-stats">
+        <div><strong>42</strong>公众号标题样本</div>
+        <div><strong>17</strong>条平台规则变更</div>
+        <div><strong>9</strong>位创作者访谈</div>
+      </div>
+    </div>
+    <div class="hero-art" aria-hidden="true">
+      <svg viewBox="0 0 380 300" role="presentation">
+        <defs>
+          <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#1b4d3e"/><stop offset="1" stop-color="#2f6a56"/>
+          </linearGradient>
+        </defs>
+        <rect x="26" y="40" width="290" height="180" rx="16" fill="url(#g1)" opacity="0.10"/>
+        <rect x="46" y="60" width="150" height="14" rx="7" fill="#1b4d3e" opacity=".85"/>
+        <rect x="46" y="86" width="250" height="9" rx="4.5" fill="#68776f" opacity=".5"/>
+        <rect x="46" y="104" width="210" height="9" rx="4.5" fill="#68776f" opacity=".4"/>
+        <rect x="46" y="128" width="120" height="70" rx="10" fill="#c2672a" opacity=".22"/>
+        <rect x="178" y="128" width="118" height="70" rx="10" fill="#1b4d3e" opacity=".16"/>
+        <circle cx="292" cy="92" r="26" fill="none" stroke="#c2672a" stroke-width="3" opacity=".8"/>
+        <path d="M292 78v18l12 8" fill="none" stroke="#c2672a" stroke-width="3" stroke-linecap="round"/>
+        <path d="M60 224h250M60 238h180" stroke="#68776f" stroke-width="4" stroke-linecap="round" opacity=".3"/>
+        <path d="M60 258h120" stroke="#1b4d3e" stroke-width="4" stroke-linecap="round" opacity=".45"/>
+      </svg>
+      <div class="float-note n1">样本：42 篇 · 中位点击率 3.1%</div>
+      <div class="float-note n2">规则版本：2026-10-28 生效</div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap layout">
+
+  <main class="main-col" id="mainContent">
+
+    <!-- 概览 -->
+    <section class="section" id="overview" aria-labelledby="h-overview">
+      <div class="section-head">
+        <div>
+          <div class="kicker">领域概览</div>
+          <h2 id="h-overview">中文内容平台现在分几层在跑</h2>
+        </div>
+        <span class="hint">更新于 2026-11-05</span>
+      </div>
+      <p>内容生产、分发、变现是三套不同的齿轮。齿轮咬合的缝隙里才有选题会、考核表和版权函。下面三块是本周仍在变化的区域。</p>
+      <div class="overview-grid">
+        <div class="ov-card">
+          <div class="num">01 生产端</div>
+          <h3>公众号与小红书笔记的选题会</h3>
+          <p>10 月 27 日，公众号「晚点LatePost」一次编辑会记录显示，6 个选题里 4 个因「缺乏具体当事人」被退回。可核查的标准是：能叫出名字、给出时间、说出原话。</p>
+        </div>
+        <div class="ov-card">
+          <div class="num">02 分发端</div>
+          <h3>推荐流与搜索流的口径差异</h3>
+          <p>抖音 10 月 30 日更新的创作者公告提到，同一视频在搜索场景下的完播权重高于推荐场景。快手 11 月 2 日的版本说明未跟进这一条。</p>
+        </div>
+        <div class="ov-card">
+          <div class="num">03 变现端</div>
+          <h3>专栏、广告、商单三条路</h3>
+          <p>B 站 10 月 29 日「充电专属」结算页把税后单价写进明细，单条视频充电收入在 3000—8000 元区间的中小 UP 主，能看到逐笔流水。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 精选 -->
+    <section class="section" id="featured" aria-labelledby="h-featured">
+      <div class="section-head">
+        <div>
+          <div class="kicker">精选内容推荐</div>
+          <h2 id="h-featured">本周值得翻一遍的六篇</h2>
+        </div>
+        <span class="hint">按编辑手记排，不按热度</span>
+      </div>
+      <div class="featured-grid">
+        <article class="f-card big">
+          <img src="https://picsum.photos/seed/cm91-title42/640/400" width="640" height="400" loading="lazy" alt="编辑部桌上摊开的 42 份公众号标题打印稿，红笔圈出三段式结构">
+          <div class="body">
+            <span class="tagline">标题拆解</span>
+            <h3>公众号标题三段式：42 篇样本里的点击率分层</h3>
+            <p>把「时间锚点＋具体对象＋反常结果」拆成三段，逐篇对 10 月 12 日至 11 月 4 日的数据。中位 3.1%，最高 7.8%，最低 0.6%。</p>
+            <div class="meta">作者 周拟 · 11-05 · 阅读 1.2 万</div>
+          </div>
+        </article>
+        <article class="f-card">
+          <img src="https://picsum.photos/seed/cm91-script/400/300" width="400" height="300" loading="lazy" alt="短视频分镜脚本手稿，前 3 秒标注了四个钩子备选">
+          <div class="body">
+            <span class="tagline">脚本</span>
+            <h3>短视频前 3 秒钩子的四种写法</h3>
+            <p>质疑式、数字式、画面式、身份式，各举两条 10 月爆款原片对照。</p>
+            <div class="meta">作者 林霭 · 11-03</div>
+          </div>
+        </article>
+        <article class="f-card">
+          <img src="https://picsum.photos/seed/cm91-copyright/400/300" width="400" height="300" loading="lazy" alt="版权授权函与截图打印件并排放在桌上，有荧光笔标记">
+          <div class="body">
+            <span class="tagline">版权</span>
+            <h3>洗稿判定：三段连续 20 字之外的边界</h3>
+            <p>用 10 月两起平台裁定书里的具体比对段落，说清「改写」与「搬运」的分界在哪。</p>
+            <div class="meta">作者 陈屏 · 11-01</div>
+          </div>
+        </article>
+        <article class="f-card">
+          <img src="https://picsum.photos/seed/cm91-charge/400/300" width="400" height="300" loading="lazy" alt="充电专属结算页截图，逐笔流水与税后单价列在表格里">
+          <div class="body">
+            <span class="tagline">变现</span>
+            <h3>充电专属结算明细该怎么读</h3>
+            <p>10 月 29 日改版后，单价、分成、税三列分开，能算出每条视频的真实到手。</p>
+            <div class="meta">作者 何戎 · 10-30</div>
+          </div>
+        </article>
+        <article class="f-card">
+          <img src="https://picsum.photos/seed/cm91-search/400/300" width="400" height="300" loading="lazy" alt="搜索框里输入关键词后返回的结果页，标注了三个不同来源的卡片">
+          <div class="body">
+            <span class="tagline">分发</span>
+            <h3>搜索流量与推荐流量的口味差</h3>
+            <p>同一账号 10 月两批视频，搜索进来的人看 42 秒，推荐进来的人看 19 秒。</p>
+            <div class="meta">作者 周拟 · 10-30</div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- 最新更新 -->
+    <section class="section" id="updates" aria-labelledby="h-updates">
+      <div class="section-head">
+        <div>
+          <div class="kicker">最新更新</div>
+          <h2 id="h-updates">规则、样本与访谈的更新记录</h2>
+        </div>
+        <span class="hint">按日期倒序</span>
+      </div>
+      <ul class="updates">
+        <li><time datetime="2026-11-06">11-06</time><span class="t">公众号标题样本从 36 篇补到 42 篇，新增 4 篇 0 到 1 万阅读的长尾案例</span><span class="src">样本库</span></li>
+        <li><time datetime="2026-11-05">11-05</time><span class="t">发布《短视频前 3 秒钩子的四种写法》，附 12 条原片时间码</span><span class="src">选题</span></li>
+        <li><time datetime="2026-11-04">11-04</time><span class="t">抖音搜索场景权重说法补充：公告原文与实测数据的差距写在引语卡里</span><span class="src">分发</span></li>
+        <li><time datetime="2026-11-02">11-02</time><span class="t">快手版本说明未跟进搜索权重，与抖音形成口径差，记录在对照面板</span><span class="src">分发</span></li>
+        <li><time datetime="2026-10-30">10-30</time><span class="t">B 站充电结算页改版后的第一份逐笔流水整理完成</span><span class="src">变现</span></li>
+        <li><time datetime="2026-10-28">10-28</time><span class="t">平台版权规则 2026 秋季版生效，比对旧版第 4.2 条措辞变化</span><span class="src">版权</span></li>
+        <li><time datetime="2026-10-27">10-27</time><span class="t">「晚点LatePost」编辑会记录进入样本，含 4 个被退回选题的理由原话</span><span class="src">访谈</span></li>
+      </ul>
+    </section>
+
+    <!-- 分类入口 -->
+    <section class="section" id="channels" aria-labelledby="h-channels">
+      <div class="section-head">
+        <div>
+          <div class="kicker">分类入口</div>
+          <h2 id="h-channels">按你要解决的问题进频道</h2>
+        </div>
+        <span class="hint">10 个频道</span>
+      </div>
+      <div class="channels">
+        <a href="/#deep">公众号标题写法<span class="c">42</span></a>
+        <a href="/#deep">短视频前 3 秒钩子<span class="c">12</span></a>
+        <a href="/#faq">洗稿判定标准<span class="c">7</span></a>
+        <a href="/#featured">小红书笔记选题<span class="c">9</span></a>
+        <a href="/#updates">推荐流权重变化<span class="c">17</span></a>
+        <a href="/#guide">创作者收入结构<span class="c">6</span></a>
+        <a href="/#comments">读者评论风向<span class="c">5</span></a>
+        <a href="/#rank">平台规则版本<span class="c">11</span></a>
+        <a href="/#news">版权授权函模板<span class="c">4</span></a>
+        <a href="/#tags">访谈原话索引<span class="c">9</span></a>
+      </div>
+    </section>
+
+    <!-- 深度解析 -->
+    <section class="section" id="deep" aria-labelledby="h-deep">
+      <div class="section-head">
+        <div>
+          <div class="kicker">深度解析 · 全页唯一主体阅读区</div>
+          <h2 id="h-deep">标题三段式不是万能药，它只在信息密度够时起效</h2>
+        </div>
+        <span class="hint">约 1100 字 · 可核对</span>
+      </div>
+      <div class="deep">
+        <article>
+          <p>编辑部在 10 月 12 日至 11 月 4 日间收集了 42 篇公众号推文，全部来自 10 万以上粉丝的账号，覆盖职场、财经、生活方式三类。把标题拆成「时间锚点＋具体对象＋反常结果」三段，逐段标记有或无，再对上后台可查的点击率。</p>
+
+          <h3>三段齐全的 19 篇，中位点击率 3.1%；缺两段的 11 篇，中位 1.4%</h3>
+          <p>差距不是线性的。19 篇里最高的一篇是「11 月 2 日，某头部券商把晨会纪要砍到 200 字」，点击率 7.8%，标题三段齐，正文第一段就有具体时间、机构、数字。最低的一篇 0.9%，标题同样三段齐全，但正文前 300 字全是概念解释，读者在第二屏就走了。所以决定点击率的不只是标题结构，还有正文前 300 字是否兑现标题承诺。</p>
+          <p>反过来，缺两段的 11 篇并非全部失败。其中 3 篇靠封面图和账号品牌拿到了 2% 以上，这说明三段式对粉丝基数低的账号更关键，对已经建立阅读预期的账号，作用会打折。</p>
+
+          <table class="checktable">
+            <caption>42 篇样本按标题段数分层（10-12 至 11-04，数据来自各账号后台截图）</caption>
+            <thead>
+              <tr><th scope="col">段数</th><th scope="col">篇数</th><th scope="col">点击率中位</th><th scope="col">正文首段兑现标题</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>三段齐全</td><td class="num">19</td><td class="num">3.1%</td><td>15 篇</td></tr>
+              <tr><td>两段</td><td class="num">12</td><td class="num">2.2%</td><td>8 篇</td></tr>
+              <tr><td>一段及以下</td><td class="num">11</td><td class="num">1.4%</td><td>4 篇</td></tr>
+            </tbody>
+          </table>
+
+          <h3>反例：10 月 24 日那篇 0.6% 的推文，三段全有但没人点</h3>
+          <p>「10 月 24 日，一家消费基金把咖啡赛道报告撤回」——时间、对象、反常结果都在，点击率只有 0.6%。编辑部核对后台发现两个原因：推送时间在周六上午 9 点 40 分，该账号周六平均打开率本来就比工作日低 40%；标题里的「一家消费基金」不点名，读者无法判断与自己是否相关。把同一稿件换成点名机构后重发，11 月 1 日点击率 4.3%。这条对比说明，第三段里的具体对象必须是读者能识别的名字或品类词，模糊指代会把三段式的效果吃掉。</p>
+
+          <blockquote>
+            <p>可被反驳的判断：三段式标题的收益主要来自「具体对象」这一段，时间锚点和反常结果是放大器，不是发动机。若只保留后两段、删掉具体对象，点击率在样本里平均掉 1.6 个百分点。</p>
+          </blockquote>
+
+          <h3>版本差异：平台 10 月 30 日公告的措辞与创作者转述不一致</h3>
+          <p>抖音 10 月 30 日创作者公告原文写的是「搜索场景下，完播与互动信号在排序中权重相对提升」，没有给百分比。11 月 2 日起，多个创作者社群转述成「搜索权重大幅上调 30%」。编辑部核对公告全文、站内信与官方客服回复，均未见 30% 这一数字。30% 属于转述中的推测，不能当事实引用。对照之下，快手 11 月 2 日版本说明未提搜索权重，两家口径在 11 月 4 日仍不一致。</p>
+
+          <h3>核查方法：把判断拆成四步</h3>
+          <ol>
+            <li>找原文：截图公告页 URL、发布账号、发布时间，三者缺一不算。</li>
+            <li>拆结构：标题分几段，逐段标注有或无，避免整体印象打分。</li>
+            <li>配对照：同一账号前后 7 天数据，或同类账号同期数据，减少账号本身的偏差。</li>
+            <li>留反例：至少记录一篇「结构齐全但失败」的样本，否则结论会被幸存者偏差带偏。</li>
+          </ol>
+          <p>四步里最容易漏的是第三步。42 篇样本中，有 6 篇来自同一账号，若不做账号内对照，点击率差异可能只是该账号粉丝活跃度波动。编辑部对这 6 篇单独做了配对，结论方向不变，但幅度从 1.7 个百分点收窄到 1.2 个百分点。</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- 体验指南 -->
+    <section class="section" id="guide" aria-labelledby="h-guide">
+      <div class="section-head">
+        <div>
+          <div class="kicker">体验指南</div>
+          <h2 id="h-guide">第一次做选题复盘，按这六步走</h2>
+        </div>
+        <span class="hint">新手可用</span>
+      </div>
+      <ol class="steps">
+        <li><b>锁定 30 天窗口</b><span>只取 10 月 9 日至 11 月 7 日内的推文，跨窗口的数据不在同一规则版本下，容易误判。</span></li>
+        <li><b>给标题分段</b><span>时间、对象、结果各标一次，缺哪段先记下来，别急着改词。</span></li>
+        <li><b>调后台点击率</b><span>公众号后台「内容分析」能导出单篇数据，导 7 天与 30 天两版，看衰减曲线。</span></li>
+        <li><b>找同账号对照</b><span>同一账号前后 7 天的推文做配对，减少粉丝活跃度波动带来的噪声。</span></li>
+        <li><b>记一条反例</b><span>至少留一篇结构好但数据差的样本，写下时间、账号、阅读量，作为下次的边界条件。</span></li>
+        <li><b>只改一个变量</b><span>重发时只动标题对象段，其他不动，否则无法判断是哪一处起了作用。</span></li>
+      </ol>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section" id="faq" aria-labelledby="h-faq">
+      <div class="section-head">
+        <div>
+          <div class="kicker">常见问题</div>
+          <h2 id="h-faq">洗稿判定、标题、推荐权重的高频疑问</h2>
+        </div>
+        <span class="hint">7 问</span>
+      </div>
+      <div class="faq">
+        <details>
+          <summary>洗稿判定里「连续 20 字」是硬标准吗？</summary>
+          <div class="ans">不是唯一标准。10 月 28 日生效的平台版权规则第 4.2 条写的是「连续或拼接后实质相同的表达达到一定长度」，20 字只是部分裁定书里出现的比对起点。判断时还看结构、例证顺序、数据引用方式是否一致。两段之间隔着改写词但论证顺序照搬，同样可能被判搬运。</div>
+        </details>
+        <details>
+          <summary>标题里点名机构会不会带来法律风险？</summary>
+          <div class="ans">点名本身不构成风险，风险在于陈述是否可核实。10 月 24 日那篇点名机构的标题，正文引用了公开报告撤回页截图与撤回说明原文，没有追加评价。可核实的负面陈述与不可核实的定性，处理方式完全不同：前者要留证据链，后者要避免。</div>
+        </details>
+        <details>
+          <summary>搜索流量的权重说法，哪个版本可以引用？</summary>
+          <div class="ans">目前可引用的只有抖音 10 月 30 日公告原文的措辞，不含具体百分比。创作者社群流传的「30%」在公告、站内信、客服回复中都没有出处，属于转述中的推测。引用时建议把原文措辞与转述分开写，标注日期。</div>
+        </details>
+        <details>
+          <summary>充电专属的到手单价怎么算？</summary>
+          <div class="ans">10 月 29 日改版后，结算页分成单价、平台分成、税费三列。以某条视频 68 元充电、平台分成 30%、税费按劳务预扣计，实际到手约 41 元。逐笔流水里能看到每笔充电的日期和金额，月度汇总在「收益中心」二级页。</div>
+        </details>
+        <details>
+          <summary>小红书笔记的选题会跟公众号有什么不同？</summary>
+          <div class="ans">小红书笔记更依赖首图与标题前 12 字，正文前两行只在点开后起作用。10 月 30 日一批美妆账号的复盘显示，同一内容换首图后点击率从 1.8% 到 4.6%，正文未改。公众号侧则更依赖标题结构，首图在信息流里占位小。</div>
+        </details>
+        <details>
+          <summary>推荐流的完播率到底看几秒？</summary>
+          <div class="ans">平台未公布统一口径。10 月两批同账号视频数据显示，时长 45 秒的视频，推荐流进来的人平均看 19 秒，搜索流进来的人平均看 42 秒。做对照时建议按流量来源分开看，不要合并成一个完播率。</div>
+        </details>
+        <details>
+          <summary>版权授权函要写哪几项才算完整？</summary>
+          <div class="ans">授权方与被授权方全称、作品名称与链接、授权范围（改编、转载、商用）、期限、地域、费用与结算方式、违约责任。10 月 31 日一份公众号转载授权函因缺「改编权」一项，被平台要求补充后才通过审核。</div>
+        </details>
+      </div>
+    </section>
+
+    <!-- 评论 -->
+    <section class="section" id="comments" aria-labelledby="h-comments">
+      <div class="section-head">
+        <div>
+          <div class="kicker">用户评论</div>
+          <h2 id="h-comments">读者对本周几篇的现场反应</h2>
+        </div>
+        <span class="hint">5 条 · 含反对</span>
+      </div>
+      <div class="comments">
+        <div class="cmt">
+          <div class="who"><b>@排版老陈</b><span>11-06 09:12</span></div>
+          <p>42 篇样本里 6 篇同账号，配对后幅度从 1.7 收到 1.2 这个细节值钱。<span class="ref">指《标题三段式》一文</span> 但样本量还是小，建议下一轮把职场类单独拆出来。</p>
+        </div>
+        <div class="cmt">
+          <div class="who"><b>@南风窗读者</b><span>11-05 21:40</span></div>
+          <p>0.6% 那篇我当天确实刷到了，周六上午推送加上不点名，标题再工整也没用。这个反例比正面案例有说服力。<span class="ref">指 10-24 那篇推文分析</span></p>
+        </div>
+        <div class="cmt">
+          <div class="who"><b>@短视频阿凯</b><span>11-05 14:03</span></div>
+          <p>前 3 秒那篇里「质疑式」的两条原片，第二条其实是画面式，不是质疑式。<span class="ref">指《短视频前 3 秒钩子》</span> 分类标准可以再细一点。</p>
+        </div>
+        <div class="cmt">
+          <div class="who"><b>@财务小鹿</b><span>11-04 10:26</span></div>
+          <p>41 元到手这个数跟我后台对上了，逐笔流水改版后确实清楚多了。但税费那列没写税率，还是得自己反推。<span class="ref">指充电结算明细</span></p>
+        </div>
+        <div class="cmt">
+          <div class="who"><b>@版权观察员</b><span>11-03 19:55</span></div>
+          <p>授权函缺改编权那条，我们公司也遇到过。<span class="ref">指 FAQ 第 7 问</span> 建议把期限和地域写进模板，平台审核会快很多。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 相关资讯 -->
+    <section class="section" id="news" aria-labelledby="h-news">
+      <div class="section-head">
+        <div>
+          <div class="kicker">相关资讯</div>
+          <h2 id="h-news">平台动作与其他内容的交叉</h2>
+        </div>
+      </div>
+      <div class="news-list">
+        <div class="news-item">
+          <img src="https://picsum.photos/seed/cm91-rules/160/130" width="160" height="130" loading="lazy" alt="平台规则页截图，第 4.2 条用黄色高亮标出">
+          <div>
+            <h3>版权规则秋季版 10 月 28 日生效，第 4.2 条措辞变化</h3>
+            <div class="meta">规则 · 10-28</div>
+          </div>
+        </div>
+        <div class="news-item">
+          <img src="https://picsum.photos/seed/cm91-douyin/160/130" width="160" height="130" loading="lazy" alt="抖音创作者公告页截图，搜索权重段落被框选">
+          <div>
+            <h3>抖音创作者公告谈搜索场景权重，未给具体百分比</h3>
+            <div class="meta">分发 · 10-30</div>
+          </div>
+        </div>
+        <div class="news-item">
+          <img src="https://picsum.photos/seed/cm91-bili/160/130" width="160" height="130" loading="lazy" alt="B 站充电结算页表格，单价、分成、税费三列分开展示">
+          <div>
+            <h3>B 站充电专属结算页改版，逐笔流水可查</h3>
+            <div class="meta">变现 · 10-30</div>
+          </div>
+        </div>
+        <div class="news-item">
+          <img src="https://picsum.photos/seed/cm91-kuaishou/160/130" width="160" height="130" loading="lazy" alt="快手版本说明页，未出现搜索权重字样">
+          <div>
+            <h3>快手 11 月 2 日版本说明未跟进搜索权重，两家口径不一</h3>
+            <div class="meta">分发 · 11-02</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 相关推荐 -->
+    <section class="section" id="tags" aria-labelledby="h-tags">
+      <div class="section-head">
+        <div>
+          <div class="kicker">相关推荐</div>
+          <h2 id="h-tags">按标签继续找</h2>
+        </div>
+      </div>
+      <div class="tags">
+        <a href="/#deep">标题三段式点开率</a>
+        <a href="/#deep">短视频前 3 秒钩子写法</a>
+        <a href="/#faq">洗稿判定连续 20 字</a>
+        <a href="/#guide">公众号后台点击率导出</a>
+        <a href="/#faq">搜索流量完播时长差异</a>
+        <a href="/#featured">小红书笔记首图改写</a>
+        <a href="/#faq">版权授权函改编权</a>
+        <a href="/#featured">充电专属逐笔流水</a>
+        <a href="/#comments">选题会退回理由</a>
+        <a href="/#rank">平台规则版本对照</a>
+      </div>
+    </section>
+
+  </main>
+
+  <aside class="side-col" aria-label="侧栏">
+    <div class="side-card">
+      <h2>栏目导航</h2>
+      <ul class="side-nav" id="sideNav">
+        <li><a href="/#overview">领域概览</a></li>
+        <li><a href="/#featured">精选内容推荐</a></li>
+        <li><a href="/#updates">最新更新</a></li>
+        <li><a href="/#channels">分类入口</a></li>
+        <li><a href="/#deep">深度解析</a></li>
+        <li><a href="/#guide">体验指南</a></li>
+        <li><a href="/#faq">常见问题</a></li>
+        <li><a href="/#comments">用户评论</a></li>
+        <li><a href="/#news">相关资讯</a></li>
+        <li><a href="/#tags">相关推荐</a></li>
+      </ul>
+    </div>
+
+    <!-- 榜单 -->
+    <div class="side-card" id="rank">
+      <h2>本周阅读榜</h2>
+      <ol class="rank">
+        <li><span class="no">1</span><span class="nm">公众号标题三段式<em>42 篇样本 · 中位 3.1%</em></span><span class="sc">1.2万</span></li>
+        <li><span class="no">2</span><span class="nm">短视频前 3 秒钩子<em>12 条原片时间码</em></span><span class="sc">9800</span></li>
+        <li><span class="no">3</span><span class="nm">洗稿判定边界<em>两起裁定书比对</em></span><span class="sc">8400</span></li>
+        <li><span class="no">4</span><span class="nm">充电专属结算明细<em>10-29 改版后</em></span><span class="sc">7200</span></li>
+        <li><span class="no">5</span><span class="nm">搜索流量与推荐流量口味差<em>42 秒对 19 秒</em></span><span class="sc">6100</span></li>
+      </ol>
+    </div>
+
+    <!-- 时间线 -->
+    <div class="side-card">
+      <h2>规则变化时间线</h2>
+      <ul class="timeline">
+        <li><span class="dt">10-28</span><b>版权规则秋季版生效</b>第 4.2 条改措辞，比对起点仍含 20 字</li>
+        <li><span class="dt">10-29</span><b>B 站充电结算页改版</b>单价、分成、税费三列分开</li>
+        <li><span class="dt">10-30</span><b>抖音创作者公告</b>提搜索场景权重，未给百分比</li>
+        <li><span class="dt">11-02</span><b>快手版本说明</b>未跟进搜索权重，口径不一</li>
+        <li><span class="dt">11-04</span><b>编辑部核对</b>30% 说法无官方出处，记为转述</li>
+      </ul>
+    </div>
+
+    <div class="side-card">
+      <h3>近期互动</h3>
+      <ul class="side-list">
+        <li><span>标题样本补到 42 篇</span><span class="d">11-06</span></li>
+        <li><span>钩子写法原片时间码</span><span class="d">11-05</span></li>
+        <li><span>结算流水整理完成</span><span class="d">10-30</span></li>
+        <li><span>编辑会记录入库</span><span class="d">10-27</span></li>
+      </ul>
+      <p class="side-note" style="margin-top:10px">想补充样本，可在评论里留账号、日期与后台截图，编辑会逐条核对。</p>
+    </div>
+  </aside>
+
+  <div class="search-feedback" id="searchFeedback" aria-live="polite"></div>
+</div>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="fname">传媒91</div>
+        <p class="fpos">把内容平台的规则、样本和数据摆在一起，让每个判断都能被翻回去核对。</p>
+        <p style="font-size:var(--fs-xs);color:#9db3a4">更新时间 2026-11-06，对应正文更新记录 11-06 条目。</p>
+      </div>
+      <div>
+        <h3>内容</h3>
+        <ul>
+          <li><a href="/#featured">精选内容推荐</a></li>
+          <li><a href="/#deep">深度解析</a></li>
+          <li><a href="/#comments">用户评论</a></li>
+          <li><a href="/#updates">最新更新</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>方法</h3>
+        <ul>
+          <li><a href="/#guide">体验指南</a></li>
+          <li><a href="/#faq">常见问题</a></li>
+          <li><a href="/#rank">阅读榜</a></li>
+          <li><a href="/#tags">标签索引</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>说明</h3>
+        <ul>
+          <li><a href="/#overview">领域概览</a></li>
+          <li><a href="/#channels">分类入口</a></li>
+          <li><a href="/#news">相关资讯</a></li>
+          <li><a href="/#announce">公告条</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-note">
+      <span>示例数据说明：文中账号、日期、阅读量、点击率为编辑样本，平台规则以官方公告原文为准。</span>
+      <span>© 2026 传媒91 编辑部 · 内容仅供讨论</span>
+    </div>
+  </div>
+</footer>
+
+<button class="totop" id="toTop" type="button" aria-label="回到顶部">↑</button>
+
+<script>
+(function(){
+  var menuBtn=document.getElementById('menuBtn');
+  var navMain=document.getElementById('navMain');
+  if(menuBtn&&navMain){
+    menuBtn.addEventListener('click',function(){
+      var open=navMain.classList.toggle('open');
+      menuBtn.setAttribute('aria-expanded',open?'true':'false');
+    });
+    navMain.addEventListener('click',function(e){
+      if(e.target.tagName==='A'&&window.innerWidth<=640){
+        navMain.classList.remove('open');
+        menuBtn.setAttribute('aria-expanded','false');
+      }
+    });
+  }
+
+  var toTop=document.getElementById('toTop');
+  function onScroll(){
+    if(window.scrollY>420){toTop.classList.add('show');}else{toTop.classList.remove('show');}
+  }
+  window.addEventListener('scroll',onScroll,{passive:true});
+  onScroll();
+  toTop.addEventListener('click',function(){
+    window.scrollTo({top:0,behavior:'smooth'});
+    document.body.focus();
+  });
+
+  var links=Array.prototype.slice.call(document.querySelectorAll('#sideNav a'));
+  var sections=links.map(function(a){return document.querySelector(a.getAttribute('href').replace('/#','#'));}).filter(Boolean);
+  if('IntersectionObserver' in window && sections.length){
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){
+          links.forEach(function(l){l.classList.remove('is-active');});
+          var active=links.find(function(l){return l.getAttribute('href').replace('/#','#')==='#'+en.target.id;});
+          if(active){active.classList.add('is-active');}
+        }
+      });
+    },{rootMargin:'-120px 0px -60% 0px',threshold:0});
+    sections.forEach(function(s){io.observe(s);});
+  }
+
+  var input=document.getElementById('searchInput');
+  var btn=document.getElementById('searchBtn');
+  var fb=document.getElementById('searchFeedback');
+  var searchables=Array.prototype.slice.call(document.querySelectorAll('#mainContent h2,#mainContent h3,#mainContent p,#mainContent li,#mainContent summary'));
+  function clearMarks(){
+    document.querySelectorAll('mark').forEach(function(m){
+      var parent=m.parentNode;
+      parent.replaceChild(document.createTextNode(m.textContent),m);
+      parent.normalize();
+    });
+  }
+  function runSearch(){
+    var q=(input.value||'').trim();
+    clearMarks();
+    if(!q){fb.textContent='';return;}
+    var hits=0;
+    var first=null;
+    searchables.forEach(function(el){
+      var txt=el.textContent;
+      if(txt.indexOf(q)>-1){
+        hits++;
+        if(!first){first=el;}
+        var html=el.innerHTML;
+        var safe=q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+        el.innerHTML=html.replace(new RegExp(safe,'g'),function(m){return '<mark>'+m+'</mark>';});
+      }
+    });
+    if(hits>0){
+      fb.textContent='找到 '+hits+' 处与「'+q+'」相关的内容，已高亮显示。';
+      if(first){
+        var sec=first.closest('section');
+        if(sec){sec.scrollIntoView({behavior:'smooth',block:'start'});}
+      }
+    }else{
+      fb.textContent='没有找到「'+q+'」。试试“标题”“洗稿”“充电”“搜索权重”等关键词。';
+    }
+  }
+  btn.addEventListener('click',runSearch);
+  input.addEventListener('keydown',function(e){
+    if(e.key==='Enter'){e.preventDefault();runSearch();}
+    if(e.key==='Escape'){input.value='';clearMarks();fb.textContent='';}
+  });
+})();
+</script>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"WebSite",
+  "name":"传媒91",
+  "description":"中文内容平台观察：标题、推荐机制、版权争议与创作者收入结构的样本记录。",
+  "inLanguage":"zh-CN"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"FAQPage",
+  "mainEntity":[
+    {"@type":"Question","name":"洗稿判定里「连续 20 字」是硬标准吗？","acceptedAnswer":{"@type":"Answer","text":"不是唯一标准。10 月 28 日生效的平台版权规则第 4.2 条写的是连续或拼接后实质相同的表达达到一定长度，20 字只是部分裁定书里出现的比对起点，还看结构、例证顺序与数据引用方式是否一致。"}},
+    {"@type":"Question","name":"标题里点名机构会不会带来法律风险？","acceptedAnswer":{"@type":"Answer","text":"点名本身不构成风险，风险在于陈述是否可核实。可核实的负面陈述需要证据链，不可核实的定性要避免。"}},
+    {"@type":"Question","name":"搜索流量的权重说法，哪个版本可以引用？","acceptedAnswer":{"@type":"Answer","text":"目前可引用的只有抖音 10 月 30 日公告原文措辞，不含具体百分比。社群流传的 30% 在公告、站内信、客服回复中都没有出处，属于转述中的推测。"}},
+    {"@type":"Question","name":"充电专属的到手单价怎么算？","acceptedAnswer":{"@type":"Answer","text":"10 月 29 日改版后，结算页分成单价、平台分成、税费三列。以 68 元充电、平台分成 30%、税费按劳务预扣计，实际到手约 41 元。"}},
+    {"@type":"Question","name":"小红书笔记的选题会跟公众号有什么不同？","acceptedAnswer":{"@type":"Answer","text":"小红书笔记更依赖首图与标题前 12 字。10 月 30 日一批美妆账号复盘显示，同一内容换首图后点击率从 1.8% 到 4.6%，正文未改。公众号更依赖标题结构。"}},
+    {"@type":"Question","name":"推荐流的完播率到底看几秒？","acceptedAnswer":{"@type":"Answer","text":"平台未公布统一口径。10 月两批同账号视频数据显示，45 秒视频推荐流平均看 19 秒，搜索流平均看 42 秒，建议按流量来源分开看。"}},
+    {"@type":"Question","name":"版权授权函要写哪几项才算完整？","acceptedAnswer":{"@type":"Answer","text":"授权方与被授权方全称、作品名称与链接、授权范围含改编与转载、期限、地域、费用与结算方式、违约责任。10 月 31 日一份授权函因缺改编权被要求补充后才通过。"}}
+  ]
+}
+</script>
+</body>
+  </html>
